@@ -1,0 +1,46 @@
+{
+  "split": "client_holdout",
+  "seed": 42,
+  "features": [
+    "impressions_90d",
+    "clicks_90d",
+    "sessions_90d",
+    "avg_position",
+    "ctr",
+    "content_age_days",
+    "days_since_last_update",
+    "word_count",
+    "engagement_rate",
+    "scroll_rate",
+    "days_with_impressions",
+    "days_with_sessions"
+  ],
+  "test_base_rate": 0.3909677419354839,
+  "results": [
+    {
+      "method": "fixed_rule",
+      "p20": 0.15,
+      "p50": 0.26,
+      "p100": 0.35,
+      "avg_precision": 0.46893303837889666,
+      "roc_auc": 0.6280991093459628
+    },
+    {
+      "method": "logistic_regression",
+      "p20": 0.9,
+      "p50": 0.78,
+      "p100": 0.78,
+      "avg_precision": 0.6316725525654397,
+      "roc_auc": 0.7162166781649917
+    },
+    {
+      "method": "random_forest",
+      "p20": 0.9,
+      "p50": 0.86,
+      "p100": 0.84,
+      "avg_precision": 0.6664746482634794,
+      "roc_auc": 0.7645927728366056
+    }
+  ],
+  "best_by_p50": "random_forest"
+}

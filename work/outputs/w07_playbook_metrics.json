@@ -1,0 +1,30 @@
+{
+  "rows_ranked": 30000,
+  "top50_proxy_precision": 1.0,
+  "top50_mean_score": 81.68250103193495,
+  "action_counts": {
+    "monitor_only": 12406,
+    "review_title_meta_and_intent": 9759,
+    "review_for_refresh": 4356,
+    "review_engagement_and_intent": 3415,
+    "review_depth_and_coverage": 64
+  },
+  "top_reason_counts": {
+    "general_review": 12406,
+    "low_ctr_visible": 9759,
+    "model_high_risk": 8768,
+    "low_engagement_visible": 6508,
+    "thin_visible": 82,
+    "stale_visible": 17
+  },
+  "monitor_policy": {
+    "p50_floor": 0.6,
+    "baseline_p50_reference": 0.26,
+    "model_p50_reference": 0.86,
+    "base_rate_reference": 0.3909677419354839,
+    "base_rate_drift_absolute": 0.1,
+    "review_if_model_loses_to_baseline_windows": 2
+  },
+  "human_review_required": true,
+  "automatic_editing": false
+}

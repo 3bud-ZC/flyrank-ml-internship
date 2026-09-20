@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="360" viewBox="0 0 820 360">
+<rect width="100%" height="100%" fill="white"/>
+<text x="24" y="32" font-family="Arial" font-size="20" font-weight="700">Action playbook mix</text>
+<text x="24" y="85" font-family="Arial" font-size="13">monitor_only</text>
+<rect x="250" y="66" width="520.0" height="30" rx="5" fill="#426B69"/>
+<text x="780.0" y="85" font-family="Arial" font-size="13">12,406</text>
+<text x="24" y="143" font-family="Arial" font-size="13">review_title_meta_and_intent</text>
+<rect x="250" y="124" width="409.1" height="30" rx="5" fill="#426B69"/>
+<text x="669.1" y="143" font-family="Arial" font-size="13">9,759</text>
+<text x="24" y="201" font-family="Arial" font-size="13">review_for_refresh</text>
+<rect x="250" y="182" width="182.6" height="30" rx="5" fill="#426B69"/>
+<text x="442.6" y="201" font-family="Arial" font-size="13">4,356</text>
+<text x="24" y="259" font-family="Arial" font-size="13">review_engagement_and_intent</text>
+<rect x="250" y="240" width="143.1" height="30" rx="5" fill="#426B69"/>
+<text x="403.1" y="259" font-family="Arial" font-size="13">3,415</text>
+<text x="24" y="317" font-family="Arial" font-size="13">review_depth_and_coverage</text>
+<rect x="250" y="298" width="2.7" height="30" rx="5" fill="#426B69"/>
+<text x="262.7" y="317" font-family="Arial" font-size="13">64</text>
+</svg>

@@ -1,0 +1,7 @@
+{
+  "forbidden_fields_in_score": [],
+  "target_used_for_scoring": false,
+  "ids_used_as_features": false,
+  "future_window_used": false,
+  "baseline_frozen": true
+}

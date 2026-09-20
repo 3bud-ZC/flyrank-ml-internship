@@ -1,0 +1,11 @@
+{
+  "seed": 42,
+  "train_rows": 27675,
+  "test_rows": 2325,
+  "train_clients": 26,
+  "test_clients": 6,
+  "base_rate_test": 0.3909677419354839,
+  "precision_at_20": 0.15,
+  "precision_at_50": 0.26,
+  "precision_at_100": 0.35
+}

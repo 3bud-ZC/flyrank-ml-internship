@@ -1,0 +1,45 @@
+{
+  "paper_findings": {
+    "finding_a": {
+      "growing_avg_age_days": 185,
+      "declining_avg_age_days": 228,
+      "growing_avg_words": 1487,
+      "declining_avg_words": 1481,
+      "allowed_claim": "observed association; not causal"
+    },
+    "finding_b": {
+      "growth_prediction_same_brand_pct": 90,
+      "growth_prediction_new_brand_pct": 75,
+      "audit_request": "name metric + base rate + time-forward evaluation"
+    }
+  },
+  "before_after": {
+    "random_row_p50": 0.92,
+    "client_holdout_p50": 0.86,
+    "random_test_base_rate": 0.542,
+    "client_test_base_rate": 0.3909677419354839,
+    "client_overlap": 0
+  },
+  "leakage_audit": {
+    "feature_count": 12,
+    "forbidden_features_present": [],
+    "label_siblings_excluded": true,
+    "ids_as_features": false,
+    "product_decisions_as_features": false,
+    "client_overlap_in_grouped_split": 0,
+    "future_claim_on_same_window_proxy": false
+  },
+  "safe_claim": {
+    "verbs": [
+      "observed",
+      "measured",
+      "ranked",
+      "flagged for review"
+    ],
+    "causal_verbs_used": false,
+    "population": "bundled 30,000-row anonymized starter slice",
+    "validation": "client holdout",
+    "target_scope": "same-window decline proxy",
+    "action_scope": "human decision support"
+  }
+}
