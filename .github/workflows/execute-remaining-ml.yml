@@ -1,0 +1,110 @@
+name: Execute remaining ML assignments
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/execute-remaining-ml.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  execute:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt nbconvert ipykernel
+
+      - name: Execute ML-04, ML-07, ML-08, ML-09, ML-10 and capstone
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          set -euo pipefail
+          jupyter nbconvert --to notebook --execute --inplace work/notebooks/w03_data_contract.ipynb --ExecutePreprocessor.timeout=900
+          jupyter nbconvert --to notebook --execute --inplace work/notebooks/w04_baseline_score.ipynb --ExecutePreprocessor.timeout=900
+          jupyter nbconvert --to notebook --execute --inplace work/notebooks/w05_model.ipynb --ExecutePreprocessor.timeout=900
+          jupyter nbconvert --to notebook --execute --inplace work/notebooks/w06_validation_audit.ipynb --ExecutePreprocessor.timeout=900
+          jupyter nbconvert --to notebook --execute --inplace work/notebooks/w07_action_playbook.ipynb --ExecutePreprocessor.timeout=900
+          jupyter nbconvert --to notebook --execute --inplace work/notebooks/capstone.ipynb --ExecutePreprocessor.timeout=900
+
+      - name: Verify executed notebooks and paper
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          paths = [
+            Path("work/notebooks/w03_data_contract.ipynb"),
+            Path("work/notebooks/w04_baseline_score.ipynb"),
+            Path("work/notebooks/w05_model.ipynb"),
+            Path("work/notebooks/w06_validation_audit.ipynb"),
+            Path("work/notebooks/w07_action_playbook.ipynb"),
+            Path("work/notebooks/capstone.ipynb"),
+          ]
+          for p in paths:
+              nb=json.loads(p.read_text(encoding="utf-8"))
+              code=[c for c in nb["cells"] if c["cell_type"]=="code" and "".join(c.get("source",[])).strip()]
+              executed=[c for c in code if c.get("execution_count") is not None]
+              errors=[o for c in code for o in c.get("outputs",[]) if o.get("output_type")=="error"]
+              print(f"{p}: {len(executed)}/{len(code)} executed; errors={len(errors)}")
+              if len(executed)!=len(code) or errors:
+                  raise SystemExit(f"Execution verification failed: {p}")
+
+          required = [
+            "work/outputs/w04_baseline_metrics.json",
+            "work/outputs/w04_leakage_receipt.json",
+            "work/outputs/w05_model_metrics.json",
+            "work/outputs/w05_feature_importance.json",
+            "work/outputs/w06_validation_receipt.json",
+            "work/outputs/w07_playbook_metrics.json",
+            "work/figures/w07_action_mix.svg",
+            "docs/index.html",
+            "work/demo_outline.md",
+            "work/social_post.md",
+            "work/employer_summary.md",
+          ]
+          for r in required:
+              if not Path(r).exists() or Path(r).stat().st_size == 0:
+                  raise SystemExit(f"Missing artifact: {r}")
+
+          html=Path("docs/index.html").read_text(encoding="utf-8")
+          required_sections=[
+            "Abstract","Introduction / Problem","Data","Methodology","Results",
+            "Limitations & Honest Framing","Ranked Recommendations","Reproducibility",
+            "Acknowledgments & Data Credit"
+          ]
+          missing=[s for s in required_sections if s not in html]
+          if missing:
+              raise SystemExit(f"Paper missing sections: {missing}")
+          print("Paper section check: PASS")
+          PY
+
+      - name: Commit verified assignment evidence
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add work/notebooks/w03_data_contract.ipynb
+          git add work/notebooks/w04_baseline_score.ipynb
+          git add work/notebooks/w05_model.ipynb
+          git add work/notebooks/w06_validation_audit.ipynb
+          git add work/notebooks/w07_action_playbook.ipynb
+          git add work/notebooks/capstone.ipynb
+          git add work/outputs/*.json work/figures/*.svg docs/index.html
+          git add work/demo_outline.md work/social_post.md work/employer_summary.md
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Execute and verify ML-04 through ML-12 evidence [skip ci]"
+            git push
+          fi
