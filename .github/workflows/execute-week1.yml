@@ -4,13 +4,9 @@ on:
   push:
     branches: [main]
     paths:
-      - '.github/workflows/execute-week1.yml'
       - 'notebooks/01_first_look_and_discovery.ipynb'
       - 'notebooks/02_your_first_readable_model.ipynb'
       - 'work/notebooks/w01_research_question.ipynb'
-      - 'scripts/**'
-      - 'requirements.txt'
-      - 'data/raw/content_refresh_anonymized.csv'
 
 permissions:
   contents: write
@@ -86,6 +82,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/raw/content_refresh_anonymized.csv docs/flyrank-seo-research-march-2026.pdf
           git add notebooks/01_first_look_and_discovery.ipynb notebooks/02_your_first_readable_model.ipynb work/notebooks/w01_research_question.ipynb
+          git add outputs/model_results.json outputs/model_report.md outputs/refresh_queue.csv outputs/flyrank_refresh_model_results.pdf outputs/charts/*.svg
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
