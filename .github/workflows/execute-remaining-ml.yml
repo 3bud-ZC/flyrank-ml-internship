@@ -5,6 +5,12 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/execute-remaining-ml.yml'
+      - 'work/notebooks/w03_data_contract.ipynb'
+      - 'work/notebooks/w04_baseline_score.ipynb'
+      - 'work/notebooks/w05_model.ipynb'
+      - 'work/notebooks/w06_validation_audit.ipynb'
+      - 'work/notebooks/w07_action_playbook.ipynb'
+      - 'work/notebooks/capstone.ipynb'
 
 permissions:
   contents: write
