@@ -6,6 +6,8 @@ on:
     paths:
       - '.github/workflows/execute-remaining-ml.yml'
       - 'work/notebooks/w03_data_contract.ipynb'
+      - 'work/notebooks/w03_feature_leakage_check.ipynb'
+      - 'work/notebooks/w04_signal_audit.ipynb'
       - 'work/notebooks/w04_baseline_score.ipynb'
       - 'work/notebooks/w05_model.ipynb'
       - 'work/notebooks/w06_validation_audit.ipynb'
@@ -38,6 +40,8 @@ jobs:
         run: |
           set -euo pipefail
           jupyter nbconvert --to notebook --execute --inplace work/notebooks/w03_data_contract.ipynb --ExecutePreprocessor.timeout=900
+          jupyter nbconvert --to notebook --execute --inplace work/notebooks/w03_feature_leakage_check.ipynb --ExecutePreprocessor.timeout=900
+          jupyter nbconvert --to notebook --execute --inplace work/notebooks/w04_signal_audit.ipynb --ExecutePreprocessor.timeout=900
           jupyter nbconvert --to notebook --execute --inplace work/notebooks/w04_baseline_score.ipynb --ExecutePreprocessor.timeout=900
           jupyter nbconvert --to notebook --execute --inplace work/notebooks/w05_model.ipynb --ExecutePreprocessor.timeout=900
           jupyter nbconvert --to notebook --execute --inplace work/notebooks/w06_validation_audit.ipynb --ExecutePreprocessor.timeout=900
@@ -52,6 +56,8 @@ jobs:
 
           paths = [
             Path("work/notebooks/w03_data_contract.ipynb"),
+            Path("work/notebooks/w03_feature_leakage_check.ipynb"),
+            Path("work/notebooks/w04_signal_audit.ipynb"),
             Path("work/notebooks/w04_baseline_score.ipynb"),
             Path("work/notebooks/w05_model.ipynb"),
             Path("work/notebooks/w06_validation_audit.ipynb"),
@@ -102,6 +108,8 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add work/notebooks/w03_data_contract.ipynb
+          git add work/notebooks/w03_feature_leakage_check.ipynb
+          git add work/notebooks/w04_signal_audit.ipynb
           git add work/notebooks/w04_baseline_score.ipynb
           git add work/notebooks/w05_model.ipynb
           git add work/notebooks/w06_validation_audit.ipynb
