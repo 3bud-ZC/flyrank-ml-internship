@@ -6,4 +6,4 @@ Instead of optimizing for generic accuracy, I framed the real decision as: **whi
 
 The biggest lesson: the model score is only one part of a useful ML system. Validation boundaries, reason codes, limits, and a clear no-auto-edit policy matter just as much.
 
-Full research paper: [DEPLOYED_PAPER_URL]
+Full research paper: https://flyrank-ml-paper-production.up.railway.app/
