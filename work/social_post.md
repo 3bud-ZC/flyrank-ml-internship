@@ -1,9 +1,14 @@
 # Social Post Cut
 
-I built an explainable content-review ranking workflow on 30,000 anonymized content items.
+I built a time-aware ML ranking system on FlyRank’s gated search-performance warehouse to answer one practical question:
 
-Instead of optimizing for generic accuracy, I framed the real decision as: **which pages should an SEO team inspect first?** I froze a transparent baseline, compared learned ranking under client-holdout validation using Precision@50, audited leakage, and turned the result into a reason-coded human review queue.
+**Which visible content pages should an SEO/content team review first because they are at elevated risk of a >20% impression decline next month?**
 
-The biggest lesson: the model score is only one part of a useful ML system. Validation boundaries, reason codes, limits, and a clear no-auto-edit policy matter just as much.
+The final pipeline uses historical GSC signals only, trains on March–April 2026 decision snapshots, selects the model on May, and keeps June sealed for final evaluation.
 
-Full research paper: https://flyrank-ml-paper-production.up.railway.app/
+On the sealed June test, the Random Forest reached **Precision@50 = 0.920**, compared with **0.680** for a transparent fixed-rule baseline. The result becomes a ranked human-review queue with reason codes — not an automatic content-editing system.
+
+The bigger lesson was that the model is only one part of the work. Time boundaries, leakage controls, a fixed baseline, honest claim language, and human review are what make the output usable.
+
+Research paper: https://flyrank-ml-paper-production.up.railway.app/
+Repository: https://github.com/3bud-ZC/flyrank-ml-internship
