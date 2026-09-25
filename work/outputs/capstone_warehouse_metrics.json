@@ -1,0 +1,125 @@
+{
+  "release": {
+    "dataset": "FlyRank/internship-warehouse",
+    "build_id": "flyrank_pseudonymized_warehouse_release_v20260703",
+    "daily_fact_documented_rows": 78835655,
+    "documented_date_min": "2025-01-27",
+    "documented_date_max": "2026-06-30",
+    "tables_used": [
+      "dim_clients",
+      "fact_content_daily_performance"
+    ],
+    "queried_months": "2026-01 through 2026-06"
+  },
+  "question": "Which visible content pages should be reviewed first because they are at elevated risk of a >20% impression decline in the next calendar month?",
+  "lane": "Refresh / Content Opportunity Scoring",
+  "grain": "one pseudonymized content item at one monthly decision point",
+  "target": "next-calendar-month impressions < 80% of immediately preceding month impressions",
+  "eligibility": {
+    "recent_month_impressions_min": 100,
+    "prior_month_impressions_min": 50,
+    "recent_active_days_min": 7,
+    "client_history_required_before_feature_window": true
+  },
+  "features": [
+    "log_impressions_recent",
+    "log_clicks_recent",
+    "ctr_recent",
+    "position_recent",
+    "position_change",
+    "impression_momentum",
+    "active_days_recent",
+    "active_days_prev"
+  ],
+  "validation_design": {
+    "train_snapshots": [
+      "2026-03",
+      "2026-04"
+    ],
+    "model_selection_validation": "2026-05",
+    "sealed_final_test": "2026-06",
+    "seed": 42,
+    "primary_metric": "Precision@50"
+  },
+  "snapshot_stats": {
+    "2026-03": {
+      "rows": 64086,
+      "clients": 27,
+      "positive_rate": 0.23178229254439348
+    },
+    "2026-04": {
+      "rows": 71467,
+      "clients": 26,
+      "positive_rate": 0.5579358305231785
+    },
+    "2026-05": {
+      "rows": 91981,
+      "clients": 38,
+      "positive_rate": 0.5651601961274612
+    },
+    "2026-06": {
+      "rows": 96524,
+      "clients": 40,
+      "positive_rate": 0.6915792963408064
+    }
+  },
+  "validation_metrics": {
+    "fixed_rule": {
+      "rows": 91981,
+      "base_rate": 0.5651601961274612,
+      "average_precision": 0.6132003587055046,
+      "roc_auc": 0.5728333018328174,
+      "precision_at_20": 0.6,
+      "precision_at_50": 0.46,
+      "precision_at_100": 0.5
+    },
+    "logistic_regression": {
+      "rows": 91981,
+      "base_rate": 0.5651601961274612,
+      "average_precision": 0.6487892244488305,
+      "roc_auc": 0.6040442650196303,
+      "precision_at_20": 0.6,
+      "precision_at_50": 0.66,
+      "precision_at_100": 0.69
+    },
+    "random_forest": {
+      "rows": 91981,
+      "base_rate": 0.5651601961274612,
+      "average_precision": 0.6359710556623077,
+      "roc_auc": 0.581838558444361,
+      "precision_at_20": 0.85,
+      "precision_at_50": 0.86,
+      "precision_at_100": 0.84
+    }
+  },
+  "selected_model": "random_forest",
+  "sealed_test_metrics": {
+    "fixed_rule": {
+      "rows": 96524,
+      "base_rate": 0.6915792963408064,
+      "average_precision": 0.6873104203263174,
+      "roc_auc": 0.5083811538761951,
+      "precision_at_20": 0.6,
+      "precision_at_50": 0.68,
+      "precision_at_100": 0.65
+    },
+    "random_forest": {
+      "rows": 96524,
+      "base_rate": 0.6915792963408064,
+      "average_precision": 0.7515436798098825,
+      "roc_auc": 0.5882725607955426,
+      "precision_at_20": 0.95,
+      "precision_at_50": 0.92,
+      "precision_at_100": 0.91
+    }
+  },
+  "leakage_checks": {
+    "future_target_fields_used_as_features": false,
+    "hash_ids_used_as_features": false,
+    "query_90d_table_used": false,
+    "ga4_signals_used": false,
+    "target_month_sealed_until_final_evaluation": true
+  },
+  "human_review_required": true,
+  "automatic_editing": false
+}
