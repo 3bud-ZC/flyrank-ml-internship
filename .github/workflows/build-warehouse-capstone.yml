@@ -1,0 +1,61 @@
+name: Build final warehouse capstone
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  capstone:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      HF_TOKEN: ${{ secrets.HF_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Verify Hugging Face secret exists
+        run: |
+          if [ -z "$HF_TOKEN" ]; then
+            echo "HF_TOKEN repository secret is missing."
+            exit 1
+          fi
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
+      - name: Build real-warehouse capstone
+        run: python work/scripts/build_warehouse_capstone.py
+
+      - name: Verify required artifacts
+        run: |
+          test -s work/outputs/capstone_warehouse_metrics.json
+          test -s work/outputs/capstone_recommendations_top10.json
+          test -s work/figures/capstone_model_comparison.svg
+          test -s docs/capstone_model_comparison.svg
+          test -s docs/index.html
+          grep -q "FlyRank ML Internship dataset" docs/index.html
+          grep -q "2026-06" work/outputs/capstone_warehouse_metrics.json
+
+      - name: Commit capstone evidence
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add work/scripts/build_warehouse_capstone.py
+          git add -f work/outputs/capstone_warehouse_metrics.json
+          git add -f work/outputs/capstone_recommendations_top10.json
+          git add work/figures/capstone_model_comparison.svg
+          git add docs/capstone_model_comparison.svg docs/index.html
+          if git diff --cached --quiet; then
+            echo "No capstone changes to commit."
+          else
+            git commit -m "Build final capstone on gated FlyRank warehouse [skip ci]"
+            git push
+          fi
