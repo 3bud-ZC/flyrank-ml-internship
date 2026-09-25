@@ -2,10 +2,6 @@ name: Build final warehouse capstone
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/build-warehouse-capstone.yml'
 
 permissions:
   contents: write
