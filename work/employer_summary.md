@@ -1,7 +1,7 @@
 # Employer-Facing Summary
 
-I built an end-to-end ML decision-support pipeline that ranks content pages for review using 30,000 anonymized production-shaped records across 32 pseudonymized clients.
+I built an end-to-end ML decision-support system on FlyRank’s gated search-performance warehouse that ranks visible content pages by risk of a >20% next-month impression decline.
 
-I designed a transparent baseline, trained and compared models under client-grouped validation, audited leakage, and converted the ranking into a reason-coded human action playbook with reproducible metric receipts.
+I designed historical-only GSC features, a transparent rule baseline, March–April training snapshots, May model selection, and a sealed June test; the selected Random Forest achieved **Precision@50 = 0.920** versus **0.680** for the fixed rule on the final test.
 
-The result is deployed as a public research paper with explicit limitations and a clear next step toward a non-overlapping, time-forward warehouse evaluation.
+I then converted the model output into a reason-coded human review queue and deployed the full public research paper with reproducible metrics, leakage checks, ranked recommendations, explicit limitations, and no automatic-edit policy.
