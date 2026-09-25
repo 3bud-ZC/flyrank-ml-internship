@@ -1,0 +1,16 @@
+{
+  "dataset": "FlyRank/internship-warehouse",
+  "partition": "month=2026-03",
+  "grain": "report_date x client_hash_id x content_hash_id",
+  "month_stats": {
+    "rows": 9841378,
+    "min_date": "2026-03-01T00:00:00",
+    "max_date": "2026-03-31T00:00:00",
+    "clients": 55,
+    "content_items": 331437,
+    "ga4_true_share": 0.04206382480177065
+  },
+  "duplicate_grain_rows": 0,
+  "ga4_availability_filter_semantics": "IS TRUE",
+  "executed_with_hf_token": true
+}
